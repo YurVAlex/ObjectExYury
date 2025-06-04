@@ -1,5 +1,4 @@
 ﻿using ObjectEx.Models;
-using System.Net.NetworkInformation;
 
 namespace ObjectEx;
 
