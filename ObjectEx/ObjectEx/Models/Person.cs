@@ -87,21 +87,11 @@ public class Person
 
     public override int GetHashCode()
     {
-        var hashCode = Name != null ? Name.Length : 0;
+        var hashCode = 9759 * Age + Name.GetHashCode()/72;
 
         unchecked
         {
-            if (hashCode != 0)
-            {
-                foreach (var symbol in Name)
-                {
-                    hashCode += (int)symbol * Name.Length;
-                }
-                hashCode += Age;
-            }
-            hashCode = ((Age % 2) == 0) ? hashCode * (-1) : hashCode;
-
-            return hashCode;
+            return ((Age % 2) == 0) ? (int.MinValue + hashCode) : (int.MaxValue - hashCode);
         }
     } // Or proper: public override int GetHashCode() => HashCode.Combine(Name, Age);
 }
