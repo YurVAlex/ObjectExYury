@@ -29,17 +29,13 @@ public class Person
 
     public static bool operator ==(Person? a, Person? b)
     {
-        if (ReferenceEquals(a, b))
+        if (ReferenceEquals(a, b)) // also check null == null is true
         {
             return true;
         }
-        if ((a is null && b is not null) || (b is null && a is not null)) // null == obj is false.
+        if ((a is null) || (b is null)) // null == obj is false
         {
             return false;
-        }
-        if (a is null && b is null) // null == null is true.
-        {
-            return true;
         }
         return a.Name == b.Name && a.Age == b.Age;
     }
@@ -87,11 +83,11 @@ public class Person
 
     public override int GetHashCode()
     {
-        var hashCode = 9759 * Age + Name.GetHashCode()/72;
-
         unchecked
         {
+            var hashCode = Math.Abs(Name.GetHashCode() / 7);
+
             return ((Age % 2) == 0) ? (int.MinValue + hashCode) : (int.MaxValue - hashCode);
         }
-    } // Or proper: public override int GetHashCode() => HashCode.Combine(Name, Age);
+    } // Or: public override int GetHashCode() => HashCode.Combine(Name, Age);
 }
